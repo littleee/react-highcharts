@@ -57,12 +57,13 @@ export default class SelectionTime extends Component{
     this.state = {
       year: now.getFullYear(),
       month: now.getMonth(),
-      day: now.getDate(),
+      day: now.getDate()-1,
       hour: now.getHours(),
       value: '',//application_id
       selectData: [],
       listShow: false,
       display: 'block',
+      hourCheck: false
     }
   }
 
@@ -78,7 +79,11 @@ export default class SelectionTime extends Component{
       listShow: !this.state.listShow
     })
   }
-
+  hourCheck() {
+    this.setState({
+      hourCheck: !this.state.hourCheck
+    })
+  }
   datePick(day) {
     this.setState({
       day: day,
@@ -86,7 +91,7 @@ export default class SelectionTime extends Component{
     })
   }
   componentWillMount(){
-    this.pick()  
+    this.pick()
   }
   pick(pt,nday) {
 //  http://dashboard.oneapm.net/line.do?topic=apm_bi_url_hostcnt&nday=1&pt=2017092505
@@ -101,17 +106,19 @@ function fmtDate(obj){
     var h = "0"+date.getHours()
     return y+""+m.substring(m.length-2,m.length)+""+d.substring(d.length-2,d.length)+""+h.substring(h.length-2,h.length);
 }
-
   if(pt==undefined){
    pt=fmtDate(new Date())
-   nday=0 
+   nday=1
   }
+  this.setState({
+    nday: nday
+  })
   var id=this.state.value||''
-  var url=`http://dashboard.oneapm.net/line.do?topic=apm_bi_url_hostcnt&nday=${nday}&pt=${pt}`;
+  var url=`http://dashboard.oneapm.net/line.do?topic=apm_bi_url_hostcnt&nday=${nday}`;
+      url += this.state.hourCheck == true ? `&pt=${pt}` : ''
   if(id!=''){
     url+=`&application_id=${id}`
   }
-   
 
     $.ajax({
       url:url,
@@ -147,7 +154,6 @@ function fmtDate(obj){
     let monthstr = this.state.month;
     monthstr +=1;
     var pt = year.toString()+(monthstr<10?'0'+monthstr.toString():monthstr.toString())+(day<10?'0'+day.toString():day.toString())+(hour<10?'0'+hour.toString():hour.toString());
-    console.log(pt);
     this.pick(pt,tnum-day);
 
     // this.props = Object.assign({}, this.props, { pt: pt })
@@ -251,10 +257,21 @@ function fmtDate(obj){
                 >
                { `${this.state.year}年${this.state.month+1}月${this.state.day}日` }
           </span>
+          <Footer
+              year={this.state.year}
+              month={this.state.month}
+              day={this.state.day}
+              hour={this.state.hour}
+              picked={::this.picked}
+            />
           <div style={{display:'inline-block',position:'relative'}}>
-            <span className="hour"
-                  onClick={::this.hourListToggle}
-                  > {`${this.state.hour}`}</span>{"时"}
+                  <from><input type="checkbox" name="checkboxbutton" value=""
+                                onClick={::this.hourCheck}/>
+                        <span className="hour"
+                              onClick={::this.hourListToggle}
+                              > {`${this.state.hour}`}
+                        </span>{`时`}
+                  </from>
             <ul className={`${listToggle} hourList`}>
               {
                 list.map((item,index)=>{
@@ -264,16 +281,10 @@ function fmtDate(obj){
               }
             </ul>
           </div>
-          <Footer
-              year={this.state.year}
-              month={this.state.month}
-              day={this.state.day}
-              hour={this.state.hour}
-              picked={::this.picked}
-            />
+
         </div>
 
-        <div ref="head" style={{backgroundColor:'#eee',width:'250px',height:'0px',overflow:'hidden',display:this.state.display}}>
+        <div ref="head" style={{backgroundColor:'#eee',width:'250px',height:'0px',overflow:'hidden',display:this.state.display,position:'absolute'}}>
           <div className="dateMonthPick">
             <span className="prev"
                   onClick={::this.prevMonth}>
@@ -324,7 +335,9 @@ function fmtDate(obj){
         </div>
         <Input pick={::this.pick}
                handleChange={::this.handleChange}/>
-        <Txt selectData={this.state.selectData}/>
+        <Txt selectData={this.state.selectData}
+             nday={this.state.nday}
+             hourCheck={this.state.hourCheck}/>
       </div>
     )
   }

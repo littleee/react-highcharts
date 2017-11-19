@@ -13,6 +13,10 @@ module.exports = {
         publicPath: "/dist/",
         filename: 'js/[name].js'
     },
+    plugins: [new HtmlWebpackPlugin({
+      inject: 'body'|false,
+      template: 'index.htm'
+    })],
     module: {
         //加载器配置
         loaders: [

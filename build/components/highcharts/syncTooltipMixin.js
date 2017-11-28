@@ -68,7 +68,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 22:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -17228,7 +17228,7 @@ var _localHighchartsBaseline = __webpack_require__(61);
 
 var _localHighchartsBaseline2 = _interopRequireDefault(_localHighchartsBaseline);
 
-var _lodash = __webpack_require__(22);
+var _lodash = __webpack_require__(20);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 

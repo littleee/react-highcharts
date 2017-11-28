@@ -37,3 +37,19 @@
 .calendarFooter{
   display: inline-block;
 }
+.textMain{
+  display: flex;
+  text-align: left;
+}
+.textMain table{
+  width: 100%;
+  height: auto;
+  border: 1px solid #eee;
+  word-wrap: break-word;
+}
+.textMain table td{
+  max-width: 200px;
+}
+.wth-50{
+  width: 50%;
+}

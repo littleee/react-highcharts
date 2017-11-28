@@ -4608,9 +4608,7 @@ return hooks;
 /* 17 */,
 /* 18 */,
 /* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -21702,6 +21700,8 @@ return hooks;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(221), __webpack_require__(41)(module)))
 
 /***/ }),
+/* 21 */,
+/* 22 */,
 /* 23 */,
 /* 24 */,
 /* 25 */,
@@ -33655,7 +33655,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _lodash = __webpack_require__(22);
+var _lodash = __webpack_require__(20);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -33914,7 +33914,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _lodash = __webpack_require__(22);
+var _lodash = __webpack_require__(20);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -33929,6 +33929,26 @@ var _Rank2 = _interopRequireDefault(_Rank);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var propConfig = {
+  singleLine: {
+    label: 'single',
+    format: _format2.default.integer,
+    getTiele: function getTiele(n, oneitem, groupBy) {
+      return oneitem[0].name;
+    },
+    pointParse: function pointParse(item) {
+      item.x = (item.startTime + item.endTime) / 2;
+      item.y = item.callCount;
+      item.customData = {
+        y: {
+          label: item.name,
+          fmtVal: _format2.default.integer(item.callCount)
+        },
+        startTime: item.startTime,
+        endTime: item.endTime
+      };
+      return item;
+    }
+  },
   pageCallcount: {
     label: '页面访问量',
     format: _format2.default.integer,
@@ -35473,13 +35493,11 @@ var getDataForMap = function getDataForMap(data) {
 };
 
 var parseToChart = function parseToChart(data, params, options) {
-  console.log(1234, data);
   var viewKey = params.viewKey;
 
   var groupBy = params.groupBy;
 
   function colorByType(detailName) {
-
     if (detailName === 'script') {
       return '#FEC584';
     } else if (detailName === 'img') {
@@ -35529,6 +35547,8 @@ var parseToChart = function parseToChart(data, params, options) {
         serie.color = colorByType(serie.name);
       } else if (viewKey === 'pageCallcount') {
         serie.color = 'rgb(84, 141, 252)';
+      } else if (viewKey === 'singleLine') {
+        serie.color = oneitem[0].color || 'rgb(84, 141, 252)';
       }
 
       return serie;

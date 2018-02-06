@@ -63,156 +63,12 @@
 /******/ 	__webpack_require__.p = "/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 452);
+/******/ 	return __webpack_require__(__webpack_require__.s = 398);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 342:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _localHighchartsBaseline = __webpack_require__(61);
-
-var _localHighchartsBaseline2 = _interopRequireDefault(_localHighchartsBaseline);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(function (factory) {
-  factory(_localHighchartsBaseline2.default);
-})(function (H) {
-
-  var seriesTypes = H.seriesTypes,
-      chartPrototype = H.Chart.prototype,
-      defaultOptions = H.getOptions(),
-      extend = H.extend,
-      each = H.each;
-
-  // Add language option
-  extend(defaultOptions.lang, {
-    noData: '暂无数据'
-  });
-
-  // Add default display options for message
-  defaultOptions.noData = {
-    position: {
-      x: 0,
-      y: 0,
-      align: 'center',
-      verticalAlign: 'middle'
-    },
-    attr: {},
-    style: {
-      fontWeight: 'bold',
-      fontSize: '12px',
-      color: '#60606a'
-    }
-    // useHTML: false
-  };
-
-  /**
-   * Define hasData functions for series. These return true if there are data points on this series within the plot area
-   */
-  function HasDataPie() {
-    return !!this.points.length; /* != 0 */
-  }
-
-  each(['pie', 'gauge', 'waterfall', 'bubble', 'treemap'], function (type) {
-    if (seriesTypes[type]) {
-      seriesTypes[type].prototype.hasData = HasDataPie;
-    }
-  });
-
-  H.Series.prototype.hasData = function () {
-    return this.visible && this.dataMax !== undefined && this.dataMin !== undefined; // #3703
-  };
-
-  /**
-   * Display a no-data message.
-   *
-   * @param {String} str An optional message to show in place of the default one
-   */
-  chartPrototype.showNoData = function (str) {
-    var chart = this,
-        options = chart.options,
-        text = str || options.lang.noData,
-        noDataOptions = options.noData;
-
-    if (!chart.noDataLabel) {
-      chart.noDataLabel = chart.renderer.label(text, 0, 0, null, null, null, noDataOptions.useHTML, null, 'no-data').attr(noDataOptions.attr).css(noDataOptions.style).add();
-      chart.noDataLabel.align(extend(chart.noDataLabel.getBBox(), noDataOptions.position), false, 'plotBox');
-    }
-  };
-
-  /**
-   * Hide no-data message
-   */
-  chartPrototype.hideNoData = function () {
-    var chart = this;
-    if (chart.noDataLabel) {
-      chart.noDataLabel = chart.noDataLabel.destroy();
-    }
-  };
-
-  /**
-   * Returns true if there are data points within the plot area now
-   */
-  chartPrototype.hasData = function () {
-    var chart = this,
-        series = chart.series,
-        i = series.length;
-
-    while (i--) {
-      if (series[i].hasData() && !series[i].options.isInternal) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  /**
-   * Show no-data message if there is no data in sight. Otherwise, hide it.
-   */
-  function HandleNoData() {
-    var chart = this;
-    if (chart.hasData()) {
-      chart.hideNoData();
-    } else {
-      chart.showNoData();
-    }
-  }
-
-  /**
-   * Add event listener to handle automatic display of no-data message
-   */
-  chartPrototype.callbacks.push(function (chart) {
-    H.addEvent(chart, 'load', HandleNoData);
-    H.addEvent(chart, 'redraw', HandleNoData);
-  });
-}); /**
-     * @license Highcharts JS v4.2.6 (2016-08-02)
-     * Plugin for displaying a message when there is no data visible in chart.
-     *
-     * (c) 2010-2016 Highsoft AS
-     * Author: Oystein Moseng
-     *
-     * License: www.highcharts.com/license
-     */
-
-/***/ }),
-
-/***/ 452:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(342);
-
-
-/***/ }),
-
-/***/ 61:
+/***/ 181:
 /***/ (function(module, exports) {
 
 /*
@@ -571,6 +427,150 @@ aa;Mb.prototype={render:function(a,b){var c=this.axis,d=c.chart,e=d.xAxis[0],f=c
 this.top=l[2],this.width=j}if(h&&l&&(h[this.isNew?"attr":"animate"]({d:l,opacity:b}),!this.isNew))this.top=l[2];if(l)this.isNew=!1},getPlotLinePath:function(a,b,c,d,e,f,g,h){var i=a.chart,j=a.left,k=a.top,l=a.width,m;m=d&&i.oldChartHeight||i.chartHeight;var n,o=a.transB,d=function(a,b,c){if(a<b||a>c)g?a=F(t(b,a),c):n=!0;return a},h=q(h,a.translate(b,null,null,!1)),b=m=x(m-h-o);I(h)?b=m=d(b,k,k+a.height):n=!0;return n&&!g?null:i.renderer.crispLine([W,e<j?j:e,b,S,f<l+j?f:l+j,m],c||1)}};Nb.prototype=
 {render:function(){var a=this.axis.chart.renderer,b=["M",this.x,this.y1,"L",this.x,this.y2];this.line?this.line.animate({d:b}):this.line=a.path(b).attr({stroke:this.color,"stroke-width":this.width,"stroke-dasharray":this.dashArray}).add(this.axis.baseLineGroup);this.isNew=!1}};v(z,{Color:pa,Point:La,Tick:Ya,Renderer:fb,SVGElement:O,SVGRenderer:Fa,arrayMin:Oa,arrayMax:Ia,charts:T,correctFloat:Y,dateFormat:Ta,error:ea,format:Na,pathAnim:void 0,getOptions:function(){return U},hasBidiBug:Tb,isTouchDevice:Pb,
 setOptions:function(a){U=E(!0,U,a);Gb();return U},addEvent:K,removeEvent:$,createElement:fa,discardElement:Va,css:H,each:p,map:Da,merge:E,splat:ua,stableSort:kb,extendClass:la,pInt:C,svg:ia,canvas:na,vml:!ia&&!na,product:"Highcharts",version:"4.2.6"});return z});
+
+
+/***/ }),
+
+/***/ 318:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _localHighchartsBaseline = __webpack_require__(181);
+
+var _localHighchartsBaseline2 = _interopRequireDefault(_localHighchartsBaseline);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(function (factory) {
+  factory(_localHighchartsBaseline2.default);
+})(function (H) {
+
+  var seriesTypes = H.seriesTypes,
+      chartPrototype = H.Chart.prototype,
+      defaultOptions = H.getOptions(),
+      extend = H.extend,
+      each = H.each;
+
+  // Add language option
+  extend(defaultOptions.lang, {
+    noData: '暂无数据'
+  });
+
+  // Add default display options for message
+  defaultOptions.noData = {
+    position: {
+      x: 0,
+      y: 0,
+      align: 'center',
+      verticalAlign: 'middle'
+    },
+    attr: {},
+    style: {
+      fontWeight: 'bold',
+      fontSize: '12px',
+      color: '#60606a'
+    }
+    // useHTML: false
+  };
+
+  /**
+   * Define hasData functions for series. These return true if there are data points on this series within the plot area
+   */
+  function HasDataPie() {
+    return !!this.points.length; /* != 0 */
+  }
+
+  each(['pie', 'gauge', 'waterfall', 'bubble', 'treemap'], function (type) {
+    if (seriesTypes[type]) {
+      seriesTypes[type].prototype.hasData = HasDataPie;
+    }
+  });
+
+  H.Series.prototype.hasData = function () {
+    return this.visible && this.dataMax !== undefined && this.dataMin !== undefined; // #3703
+  };
+
+  /**
+   * Display a no-data message.
+   *
+   * @param {String} str An optional message to show in place of the default one
+   */
+  chartPrototype.showNoData = function (str) {
+    var chart = this,
+        options = chart.options,
+        text = str || options.lang.noData,
+        noDataOptions = options.noData;
+
+    if (!chart.noDataLabel) {
+      chart.noDataLabel = chart.renderer.label(text, 0, 0, null, null, null, noDataOptions.useHTML, null, 'no-data').attr(noDataOptions.attr).css(noDataOptions.style).add();
+      chart.noDataLabel.align(extend(chart.noDataLabel.getBBox(), noDataOptions.position), false, 'plotBox');
+    }
+  };
+
+  /**
+   * Hide no-data message
+   */
+  chartPrototype.hideNoData = function () {
+    var chart = this;
+    if (chart.noDataLabel) {
+      chart.noDataLabel = chart.noDataLabel.destroy();
+    }
+  };
+
+  /**
+   * Returns true if there are data points within the plot area now
+   */
+  chartPrototype.hasData = function () {
+    var chart = this,
+        series = chart.series,
+        i = series.length;
+
+    while (i--) {
+      if (series[i].hasData() && !series[i].options.isInternal) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  /**
+   * Show no-data message if there is no data in sight. Otherwise, hide it.
+   */
+  function HandleNoData() {
+    var chart = this;
+    if (chart.hasData()) {
+      chart.hideNoData();
+    } else {
+      chart.showNoData();
+    }
+  }
+
+  /**
+   * Add event listener to handle automatic display of no-data message
+   */
+  chartPrototype.callbacks.push(function (chart) {
+    H.addEvent(chart, 'load', HandleNoData);
+    H.addEvent(chart, 'redraw', HandleNoData);
+  });
+}); /**
+     * @license Highcharts JS v4.2.6 (2016-08-02)
+     * Plugin for displaying a message when there is no data visible in chart.
+     *
+     * (c) 2010-2016 Highsoft AS
+     * Author: Oystein Moseng
+     *
+     * License: www.highcharts.com/license
+     */
+
+/***/ }),
+
+/***/ 398:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(318);
 
 
 /***/ })

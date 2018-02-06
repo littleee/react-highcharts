@@ -1,0 +1,13 @@
+.DS_Store
+.vscode/
+node_modules/
+.npmglobal/
+dist/
+coverage
+npm-debug.log
+latest.zip
+latest.tar.gz
+lint-report
+esdoc/
+package-lock.json
+build

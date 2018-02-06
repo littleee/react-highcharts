@@ -1,3 +1,7 @@
+
+td{
+  word-wrap: break-word;
+}
 .hide{
   display: none;
 }
@@ -37,7 +41,7 @@
 .calendarFooter{
   display: inline-block;
 }
-.textMain{
+/*.textMain{
   display: flex;
   text-align: left;
 }
@@ -49,7 +53,40 @@
 }
 .textMain table td{
   max-width: 200px;
-}
+}*/
 .wth-50{
   width: 50%;
+}
+.calendar{
+  margin:0!important;
+}
+.dropdown-menu{
+  padding: 0!important;
+}
+.card-bg{
+  padding: 10px 10px 0;
+}
+.flex-item .table-body{
+  height: 100%;
+}
+.form-control{
+  max-width: 300px;
+}
+.card-board{
+  background-color: #fff;
+    border-width: 0;
+    border-radius: 3px;
+    border: 1px solid #e0e0e0;
+}
+.m-r-40{
+  margin-right: 40px;
+}
+.m-r-30{
+  margin-right: 30px;
+}
+.m-r-20{
+  margin-right: 20px;
+}
+.m-r-10{
+  margin-right: 10px!important;
 }

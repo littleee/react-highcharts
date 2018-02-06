@@ -2,21 +2,21 @@ var webpack = require('webpack');
 const path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var glob = require('glob');
-
-var entries = getEntry('app/js/**.js','app/js/');
+var I18nPlugin=require('i18n-webpack-plugin');
+var entries = getEntry('app/**/**.js','app/');
 module.exports = {
     //页面入口文件配置
     entry: entries,
     //入口文件输出配置
     output: {
         path: path.join(__dirname,'build'),//生成文件的根目录
-        publicPath: "/dist/",
-        filename: 'js/[name].js'
+        publicPath: "/build/",
+        filename: '[name].js'
     },
     plugins: [new HtmlWebpackPlugin({
       inject: 'body'|false,
       template: 'index.htm'
-    })],
+    }),new I18nPlugin(null)],
     module: {
         //加载器配置
         loaders: [
@@ -32,9 +32,19 @@ module.exports = {
                  ]
               }
             },
-            { test: /\.css$/, loader: 'style-loader!css-loader' }
+            { test: /\.css$/, loader: 'style-loader!css-loader!less-loader' },
+            {
+                test   : /\.(woff|woff2|svg|eot|ttf|png|jpg|jpeg|swf)(\?t=[0-9]+)?$/,
+                  use: [
+                          {
+                            loader: 'file-loader',
+                            options: {}
+                          }
+                        ]
+            }
         ]
-    }
+    },
+
 };
 
 function getEntry(globPath,pathDir){

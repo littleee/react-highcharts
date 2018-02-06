@@ -1,0 +1,35 @@
+.chart-container{
+  z-index: 100;
+  background-color: $grey100;
+  padding: 100px;
+  background-color: transparent;
+  .chart-window{
+    background-color: $white;
+    border: 1px solid $blue300;
+    box-shadow: 0 0 4px 4px $blue200;
+    padding: 10px;
+    .chart-child{
+      position: absolute;
+      top: 40px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+    .chart-title{
+      position: absolute;
+      height: 20px;
+      line-height: 20px;
+      left: 0;
+      right: 0;
+      .icon-close{
+        transition-property: color;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-out;
+        cursor: pointer;
+        &:hover{
+          color: $deepOrange500;
+        }
+      }
+    }
+  }
+}
